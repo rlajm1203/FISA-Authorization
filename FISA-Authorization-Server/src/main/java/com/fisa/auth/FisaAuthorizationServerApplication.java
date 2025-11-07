@@ -1,4 +1,4 @@
-package auth;
+package com.fisa.auth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
