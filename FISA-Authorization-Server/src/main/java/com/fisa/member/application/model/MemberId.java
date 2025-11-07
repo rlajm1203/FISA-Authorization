@@ -8,8 +8,8 @@ public class MemberId {
 
     private final UUID id;
 
-    private MemberId(String uuid){
-        this.id = UUID.fromString(uuid);
+    private MemberId(UUID uuid){
+        this.id = uuid;
     }
 
     private MemberId(){
@@ -20,7 +20,7 @@ public class MemberId {
         return new MemberId();
     }
 
-    public static MemberId load(String uuid){
+    public static MemberId load(UUID uuid){
         return new MemberId(uuid);
     }
 
