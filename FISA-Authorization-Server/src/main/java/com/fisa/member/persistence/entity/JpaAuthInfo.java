@@ -28,7 +28,6 @@ public class JpaAuthInfo {
 
     private String credential;
 
-    @JoinColumn(nullable = false, name = "member_id")
     @OneToOne(fetch = FetchType.EAGER)
     private JpaMember member;
 

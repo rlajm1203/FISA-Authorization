@@ -7,6 +7,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import java.util.UUID;
 import lombok.AccessLevel;
@@ -42,6 +43,7 @@ public class JpaMember {
     private Curriculum curriculum;
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "member")
+    @JoinColumn(nullable = false)
     private JpaAuthInfo authInfo;
 
     public static JpaMember of(UUID id, String name, String phoneNumber, String email, Curriculum curriculum, int generation, String loginId, String credential){
