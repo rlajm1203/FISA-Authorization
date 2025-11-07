@@ -1,0 +1,25 @@
+## ?????? ?? ??
+
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true       # ?? DB? ?? ???? ???? ?? ??
+    validate-on-migrate: true       # ??? ??? ??
+    clean-disabled: true            # ???? drop ??
+    out-of-order: false             # ?? ?? ??
+    encoding: UTF-8
+
+  jpa:
+    hibernate:
+      ddl-auto: ${DATABASE_DDL_AUTO}
+    generate-ddl: true
+    open-in-view: false # osiv
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect # ??
