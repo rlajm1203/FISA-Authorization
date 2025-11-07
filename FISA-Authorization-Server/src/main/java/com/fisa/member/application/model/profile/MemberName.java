@@ -5,10 +5,10 @@ import lombok.Getter;
 @Getter
 public class MemberName {
 
-    private final String name;
+    private final String value;
 
     private MemberName(String name){
-        this.name = name;
+        this.value = name;
     }
 
     public static MemberName of(String name){

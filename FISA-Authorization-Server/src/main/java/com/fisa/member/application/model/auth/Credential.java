@@ -7,11 +7,11 @@ public class Credential {
 
     private static final String REGEX = "";
 
-    private final String credential;
+    private final String value;
 
     private Credential(String credential){
         validate(credential);
-        this.credential = credential;
+        this.value = credential;
     }
 
     private void validate(String credential) {

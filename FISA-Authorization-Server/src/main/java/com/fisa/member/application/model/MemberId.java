@@ -6,14 +6,14 @@ import lombok.Getter;
 @Getter
 public class MemberId {
 
-    private final UUID id;
+    private final UUID value;
 
     private MemberId(UUID uuid){
-        this.id = uuid;
+        this.value = uuid;
     }
 
     private MemberId(){
-        this.id = UUID.randomUUID();
+        this.value = UUID.randomUUID();
     }
 
     public static MemberId createNew(){

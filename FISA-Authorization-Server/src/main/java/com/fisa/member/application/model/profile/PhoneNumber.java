@@ -7,11 +7,11 @@ public class PhoneNumber {
 
     private static final String REGEX = "";
 
-    private final String phoneNumber;
+    private final String value;
 
     public PhoneNumber(String phoneNumber){
         validate(phoneNumber);
-        this.phoneNumber = phoneNumber;
+        this.value = phoneNumber;
     }
 
     private void validate(String phoneNumber) {

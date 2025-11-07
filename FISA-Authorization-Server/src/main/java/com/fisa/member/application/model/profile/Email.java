@@ -7,11 +7,11 @@ public class Email {
 
     private static final String REGEX = "";
 
-    public final String email;
+    private final String value;
 
     private Email(String email){
         validate(email);
-        this.email = email;
+        this.value = email;
     }
 
     private void validate(String email) {

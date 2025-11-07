@@ -7,11 +7,11 @@ public class LoginId {
 
     private final String REGEX = "";
 
-    private final String loginId;
+    private final String value;
 
     private LoginId(String loginId){
         validate(loginId);
-        this.loginId = loginId;
+        this.value = loginId;
     }
 
     private void validate(String loginId) {
