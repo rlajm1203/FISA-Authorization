@@ -1,11 +1,12 @@
 package com.fisa.auth.security.mock;
 
-import static com.fisa.bank.common.config.security.jwt.JwtConst.ACCESS_TOKEN;
-import static com.fisa.bank.common.config.security.jwt.JwtConst.REFRESH_TOKEN;
+
+import static com.fisa.auth.security.jwt.JwtConst.ACCESS_TOKEN;
+import static com.fisa.auth.security.jwt.JwtConst.REFRESH_TOKEN;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fisa.bank.common.config.security.jwt.UserJwtGenerator;
+import com.fisa.auth.security.jwt.UserJwtGenerator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

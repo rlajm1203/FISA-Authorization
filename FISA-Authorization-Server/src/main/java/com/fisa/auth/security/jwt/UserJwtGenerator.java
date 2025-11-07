@@ -1,8 +1,8 @@
 package com.fisa.auth.security.jwt;
 
-import static com.fisa.bank.common.config.security.jwt.JwtConst.CLAIM_ISSUER;
-import static com.fisa.bank.common.config.security.jwt.JwtConst.CLAIM_ROLE;
-import static com.fisa.bank.common.config.security.jwt.JwtConst.CLAIM_USER_ID;
+import static com.fisa.auth.security.jwt.JwtConst.CLAIM_ISSUER;
+import static com.fisa.auth.security.jwt.JwtConst.CLAIM_ROLE;
+import static com.fisa.auth.security.jwt.JwtConst.CLAIM_USER_ID;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

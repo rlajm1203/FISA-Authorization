@@ -1,6 +1,8 @@
 package com.fisa.auth.security.resource;
 
-import static com.fisa.bank.common.config.security.jwt.JwtConst.*;
+
+import static com.fisa.auth.security.jwt.JwtConst.CLAIM_ROLE;
+import static com.fisa.auth.security.jwt.JwtConst.CLAIM_USER_ID;
 
 import java.util.Collection;
 import java.util.Collections;

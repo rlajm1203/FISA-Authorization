@@ -1,11 +1,12 @@
 package com.fisa.auth.security.mock;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fisa.bank.common.config.security.jwt.UserJwtGenerator;
-import com.fisa.bank.common.config.security.resource.JwtAuthenticationConverter;
-import com.fisa.bank.common.config.security.resource.JwtAuthenticationProvider;
-import com.fisa.bank.common.config.security.resource.LoginFailureHandler;
-import com.fisa.bank.common.config.security.resource.UnknownEndPointFilter;
+
+import com.fisa.auth.security.jwt.UserJwtGenerator;
+import com.fisa.auth.security.resource.JwtAuthenticationConverter;
+import com.fisa.auth.security.resource.JwtAuthenticationProvider;
+import com.fisa.auth.security.resource.LoginFailureHandler;
+import com.fisa.auth.security.resource.UnknownEndPointFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;

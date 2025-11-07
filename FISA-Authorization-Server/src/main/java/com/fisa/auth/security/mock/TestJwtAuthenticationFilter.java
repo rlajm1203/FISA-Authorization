@@ -1,6 +1,6 @@
 package com.fisa.auth.security.mock;
 
-import com.fisa.bank.common.config.security.resource.JwtAuthentication;
+import com.fisa.auth.security.resource.JwtAuthentication;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

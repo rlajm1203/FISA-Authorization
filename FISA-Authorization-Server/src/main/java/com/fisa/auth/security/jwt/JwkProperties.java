@@ -1,7 +1,7 @@
 package com.fisa.auth.security.jwt;
 
-import com.fisa.bank.common.config.security.util.AsymmetricKeyUtils;
-import com.fisa.bank.common.config.security.util.Readers;
+import com.fisa.auth.security.util.AsymmetricKeyUtils;
+import com.fisa.auth.security.util.Readers;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import lombok.Getter;

@@ -1,8 +1,7 @@
 package com.fisa.auth.security.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fisa.bank.common.config.security.jwt.UserJwtGenerator;
-import com.fisa.bank.user.persistence.repository.UserAuthRepository;
+import com.fisa.auth.security.jwt.UserJwtGenerator;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
