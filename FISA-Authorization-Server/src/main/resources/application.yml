@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: FISA-Authorization-Server
+
+  config:
+    import:
+      - classpath:application-db.yml
+      - classpath:application-auth.yml
+  profiles:
+    active: ${PROFILE}
