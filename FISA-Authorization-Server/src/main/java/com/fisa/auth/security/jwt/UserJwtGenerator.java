@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Collection;
+import java.util.UUID;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.jwt.JwsHeader;
@@ -31,11 +32,11 @@ public class UserJwtGenerator {
     this.jwtProperties = jwtProperties;
   }
 
-  public Jwt createAccessToken(Long userId, Collection<? extends GrantedAuthority> authorities) {
+  public Jwt createAccessToken(UUID memberId, Collection<? extends GrantedAuthority> authorities) {
     ZonedDateTime now = LocalDateTime.now().atZone(KST);
     JwtClaimsSet claimsSet =
         JwtClaimsSet.builder()
-            .claim(CLAIM_USER_ID, userId)
+            .claim(CLAIM_USER_ID, memberId)
             .claim(CLAIM_ROLE, authorities)
             .issuer(CLAIM_ISSUER)
             .issuedAt(now.toInstant())
@@ -45,11 +46,11 @@ public class UserJwtGenerator {
     return jwtEncoder.encode(JwtEncoderParameters.from(header, claimsSet));
   }
 
-  public Jwt createRefreshToken(Long userId) {
+  public Jwt createRefreshToken(UUID memberId) {
     ZonedDateTime now = LocalDateTime.now().atZone(KST);
     JwtClaimsSet claimsSet =
         JwtClaimsSet.builder()
-            .claim(CLAIM_USER_ID, userId)
+            .claim(CLAIM_USER_ID, memberId)
             .issuer(CLAIM_ISSUER)
             .issuedAt(now.toInstant())
             .expiresAt(now.toInstant().plus(jwtProperties.getRefreshTokenExpiration()))

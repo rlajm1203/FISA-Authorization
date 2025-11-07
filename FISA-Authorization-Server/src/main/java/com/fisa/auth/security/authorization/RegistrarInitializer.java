@@ -1,7 +1,7 @@
 package com.fisa.auth.security.authorization;
 
-import static com.fisa.bank.common.config.security.authorization.OAuth2Const.SCOPE_CLIENT_CREATE;
-import static com.fisa.bank.common.config.security.authorization.OAuth2Const.SCOPE_CLIENT_READ;
+import static com.fisa.auth.security.authorization.OAuth2Const.SCOPE_CLIENT_CREATE;
+import static com.fisa.auth.security.authorization.OAuth2Const.SCOPE_CLIENT_READ;
 
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;

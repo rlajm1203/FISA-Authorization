@@ -1,6 +1,6 @@
 package com.fisa.auth.security.resource;
 
-import com.fisa.bank.user.persistence.entity.id.UserId;
+import com.fisa.member.application.model.MemberId;
 import java.util.Collection;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Getter
 @RequiredArgsConstructor
 public final class CustomUserDetails implements UserDetails {
-  private final UserId userId; // ← 도메인 식별자
+  private final MemberId memberId; // ← 도메인 식별자
   private final String username;
   private final String password;
   private final Collection<? extends GrantedAuthority> authorities;

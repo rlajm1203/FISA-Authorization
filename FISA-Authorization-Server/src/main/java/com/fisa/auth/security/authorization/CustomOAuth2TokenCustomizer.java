@@ -1,10 +1,12 @@
 package com.fisa.auth.security.authorization;
 
-import static com.fisa.bank.common.config.security.authorization.OAuth2Const.OAUTH2_ACCESS_TOKEN;
-import static com.fisa.bank.common.config.security.jwt.JwtConst.*;
+import static com.fisa.auth.security.authorization.OAuth2Const.OAUTH2_ACCESS_TOKEN;
+import static com.fisa.auth.security.jwt.JwtConst.CLAIM_ROLE;
+import static com.fisa.auth.security.jwt.JwtConst.CLAIM_USER_ID;
 
-import com.fisa.bank.user.persistence.entity.id.UserId;
-import com.fisa.bank.user.persistence.repository.UserAuthRepository;
+import com.fisa.member.application.model.auth.LoginId;
+import com.fisa.member.application.repository.MemberRepository;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -16,13 +18,13 @@ import org.springframework.security.oauth2.server.authorization.token.JwtEncodin
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 import org.springframework.stereotype.Component;
 
-/** OAuth2 Client에게 AccessToken을 발급할 때, Jwt에 사용자의 UserId 클레임을 삽입하는 역할을 수행 */
+/** OAuth2 Client에게 AccessToken을 발급할 때, Jwt에 사용자의 MemberId 클레임을 삽입하는 역할을 수행 */
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class CustomOAuth2TokenCustomizer implements OAuth2TokenCustomizer<JwtEncodingContext> {
 
-  private final UserAuthRepository userAuthRepository;
+  private final MemberRepository memberRepository;
 
   @Override
   public void customize(JwtEncodingContext context) {
@@ -32,10 +34,8 @@ public class CustomOAuth2TokenCustomizer implements OAuth2TokenCustomizer<JwtEnc
     if (principal instanceof UsernamePasswordAuthenticationToken) {
       UserDetails user = (UserDetails) principal.getPrincipal();
 
-      UserId userId =
-          userAuthRepository
-              .findUserIdByLoginId(user.getUsername())
-              .orElseThrow(() -> new AuthenticationServiceException("Not found username"));
+      UUID userId =
+          memberRepository.findByLoginId(LoginId.of(user.getUsername())).getId().getValue();
       // 공통 정보
       var authorities =
           principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
@@ -44,7 +44,7 @@ public class CustomOAuth2TokenCustomizer implements OAuth2TokenCustomizer<JwtEnc
         // Access Token 커스텀
         // aud, jti, nbf 등도 여기서 세밀 제어 가능
         context.getClaims().claim(CLAIM_ROLE, authorities);
-        context.getClaims().claim(CLAIM_USER_ID, userId.getValue());
+        context.getClaims().claim(CLAIM_USER_ID, userId);
       }
 
       if (OidcParameterNames.ID_TOKEN.equals(context.getTokenType().getValue())) {

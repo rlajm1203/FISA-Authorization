@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -42,7 +43,7 @@ public class TestLoginSuccessHandler implements AuthenticationSuccessHandler {
 
       if (Objects.nonNull(user)) {
 
-        Long userId = Long.valueOf(user.getUsername());
+        UUID userId = UUID.fromString(user.getUsername());
 
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
         String accessToken = jwtGenerator.createAccessToken(userId, authorities).getTokenValue();
