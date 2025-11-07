@@ -19,30 +19,45 @@ public class MemberRepositoryImpl implements MemberRepository {
 
     @Override
     public List<Member> findByName(MemberName name) {
-        return jpaRepository.findByName(name.getName())
+        return jpaRepository.findByName(name.getValue())
                 .stream().map(this::toModel).toList();
     }
 
     @Override
     public Member findById(MemberId id) {
-        return jpaRepository.findById(id.getId())
+        return jpaRepository.findById(id.getValue())
                 .map(this::toModel)
-                .orElseThrow(() -> new IllegalArgumentException("Member Not Found : %s".formatted(id.getId())));
+                .orElseThrow(() -> new IllegalArgumentException("Member Not Found : %s".formatted(id.getValue())));
     }
 
     @Override
     public Member findByLoginId(LoginId loginId) {
-        return null;
+        return jpaRepository.findByLoginId(loginId.getValue())
+                .map(this::toModel)
+                .orElseThrow(() -> new IllegalArgumentException("Member Not Found (loginId) : %s".formatted(loginId.getValue())));
     }
 
     @Override
     public void save(Member member) {
-
+        jpaRepository.save(toEntity(member));
     }
 
     private Member toModel(JpaMember jpaMember){
         JpaAuthInfo authInfo = jpaMember.getAuthInfo();
         return Member.load(jpaMember.getId(), jpaMember.getName(), jpaMember.getPhoneNumber(), jpaMember.getGeneration(),
                 jpaMember.getEmail(), jpaMember.getCurriculum(), authInfo.getLoginId(), authInfo.getCredential());
+    }
+
+    private JpaMember toEntity(Member member){
+        return JpaMember.of(
+                member.getId().getValue(),
+                member.getName().getValue(),
+                member.getPhoneNumber().getValue(),
+                member.getEmail().getValue(),
+                member.getCurriculum(),
+                member.getGeneration(),
+                member.getAuthInfo().getLoginId().getValue(),
+                member.getAuthInfo().getCredential().getValue()
+        );
     }
 }
