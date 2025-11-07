@@ -43,7 +43,7 @@ public class TestLoginSuccessHandler implements AuthenticationSuccessHandler {
 
       if (Objects.nonNull(user)) {
 
-        UUID userId = UUID.fromString(user.getUsername());
+        UUID userId = UUID.fromString(user.getUsername()); // UUID ?
 
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
         String accessToken = jwtGenerator.createAccessToken(userId, authorities).getTokenValue();
