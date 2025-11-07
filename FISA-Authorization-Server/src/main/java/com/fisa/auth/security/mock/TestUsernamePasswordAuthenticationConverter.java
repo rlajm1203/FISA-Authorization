@@ -14,9 +14,9 @@ public class TestUsernamePasswordAuthenticationConverter implements Authenticati
   @Override
   public Authentication convert(HttpServletRequest request) {
     try {
-      String userId = request.getRequestURI().replace("/api/login/", "");
+      String memberId = request.getRequestURI().replace("/api/login/", "");
 
-      return new UsernamePasswordAuthenticationToken(userId, "{noop}password");
+      return new UsernamePasswordAuthenticationToken(memberId, "{noop}password");
     } catch (Exception e) {
       throw new AuthenticationServiceException(
           "Failed to create UsernamePasswordAuthentication", e);

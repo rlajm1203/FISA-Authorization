@@ -12,12 +12,12 @@ public class TestUsernamePasswordAuthenticationProvider implements Authenticatio
 
   @Override
   public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-    String userId = (String) authentication.getPrincipal();
+    String memberId = (String) authentication.getPrincipal();
     String password = (String) authentication.getCredentials();
     Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
     return new UsernamePasswordAuthenticationToken(
-        new User(userId, password, authorities), password, authorities);
+        new User(memberId, password, authorities), password, authorities);
   }
 
   @Override

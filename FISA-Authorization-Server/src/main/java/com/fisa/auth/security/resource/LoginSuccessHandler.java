@@ -8,6 +8,8 @@ import static com.fisa.auth.security.jwt.JwtConst.REFRESH_TOKEN;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fisa.auth.security.jwt.UserJwtGenerator;
+import com.fisa.member.application.model.auth.LoginId;
+import com.fisa.member.application.repository.MemberRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,6 +17,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -33,7 +36,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
   private final UserJwtGenerator jwtGenerator;
   private final ObjectMapper objectMapper;
-  private final UserAuthRepository userAuthRepository;
+  private final MemberRepository memberRepository;
 
   @Override
   public void onAuthenticationSuccess(
@@ -45,7 +48,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
       if (Objects.nonNull(user)) {
 
-        Long userId = getUserId(user.getUsername());
+        UUID userId = getUserId(user.getUsername());
         /*
            TODO: jwt에 권한 정보를 담을 경우, 토큰이 탈취되면 디코딩해서 권한 정보가 노출될 수 있다.
                따라서 보안이 중요한 서비스의 경우에는, 외부에서 어떤 권한인지 식별할 수 없도록 별도로 매핑해서 토큰을 생성해야 한다.
@@ -79,11 +82,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     }
   }
 
-  private Long getUserId(String loginId) {
-    return userAuthRepository
-        .findUserIdByLoginId(loginId)
-        .orElseThrow(
-            () -> new UsernameNotFoundException("username %s not found".formatted(loginId)))
-        .getValue();
+  private UUID getUserId(String loginId) {
+    return memberRepository.findByLoginId(LoginId.of(loginId)).getId().getValue();
   }
 }

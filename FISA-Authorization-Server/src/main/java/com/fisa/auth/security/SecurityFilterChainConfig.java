@@ -1,7 +1,7 @@
 package com.fisa.auth.security;
 
-import com.fisa.bank.common.config.security.resource.RequiredAuthenticationEntryPoint;
-import com.fisa.bank.common.config.security.resource.UnknownEndPointFilter;
+import com.fisa.auth.security.resource.RequiredAuthenticationEntryPoint;
+import com.fisa.auth.security.resource.UnknownEndPointFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

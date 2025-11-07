@@ -1,7 +1,9 @@
 package com.fisa.auth.security.resource;
 
-import com.fisa.bank.user.persistence.entity.UserAuth;
-import com.fisa.bank.user.persistence.repository.UserAuthRepository;
+import com.fisa.member.application.model.Member;
+import com.fisa.member.application.model.auth.AuthInfo;
+import com.fisa.member.application.model.auth.LoginId;
+import com.fisa.member.application.repository.MemberRepository;
 import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
@@ -12,19 +14,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-  private final UserAuthRepository authRepository;
+  private final MemberRepository memberRepository;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-    UserAuth userAuth =
-        authRepository
-            .findById(username)
-            .orElseThrow(
-                () ->
-                    new UsernameNotFoundException(
-                        String.format("Username not found : %s", username)));
+    Member member = memberRepository.findByLoginId(LoginId.of(username));
+    AuthInfo authInfo = member.getAuthInfo();
 
-    return new User(username, userAuth.getPassword(), Collections.emptyList());
+    return new User(username, authInfo.getCredential().getValue(), Collections.emptyList());
   }
 }

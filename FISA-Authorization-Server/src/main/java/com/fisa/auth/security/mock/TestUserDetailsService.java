@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class TestUserDetailsService implements UserDetailsService {
 
   @Override
-  public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-    return new User(userId, "{noop}password", Collections.emptyList());
+  public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
+    return new User(memberId, "{noop}password", Collections.emptyList());
   }
 }

@@ -2,6 +2,7 @@ package com.fisa.auth.security.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fisa.auth.security.jwt.UserJwtGenerator;
+import com.fisa.member.application.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -79,8 +80,8 @@ public class AuthorizationConfig {
   }
 
   @Bean("UserDetailsService")
-  public UserDetailsService userDetailsService(UserAuthRepository userAuthRepository) {
-    return new CustomUserDetailsService(userAuthRepository);
+  public UserDetailsService userDetailsService(MemberRepository memberRepository) {
+    return new CustomUserDetailsService(memberRepository);
   }
 
   @Bean("BcryptPasswordEncoder")
@@ -101,9 +102,9 @@ public class AuthorizationConfig {
   @Bean("LoginSuccessHandler")
   public AuthenticationSuccessHandler loginSuccessHandler(
       ObjectMapper objectMapper,
-      UserAuthRepository userAuthRepository,
+      MemberRepository memberRepository,
       UserJwtGenerator jwtGenerator) {
-    return new LoginSuccessHandler(jwtGenerator, objectMapper, userAuthRepository);
+    return new LoginSuccessHandler(jwtGenerator, objectMapper, memberRepository);
   }
 
   @Bean("UsernamePasswordAuthenticationConverter")

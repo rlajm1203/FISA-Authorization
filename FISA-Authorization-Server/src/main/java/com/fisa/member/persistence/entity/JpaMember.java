@@ -1,0 +1,71 @@
+package com.fisa.member.persistence.entity;
+
+import com.fisa.member.application.model.profile.Curriculum;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder(access = AccessLevel.PRIVATE)
+@Table(
+        name = "member",
+        indexes = {
+                @Index(name = "idx_member_name", columnList = "name"),
+                @Index(name = "idx_member_email", columnList = "email")
+        }
+)
+public class JpaMember {
+
+    @Id
+    private UUID id;
+
+    @Column(nullable = false)
+    private String phoneNumber;
+
+    @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private int generation;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Curriculum curriculum;
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "member")
+    @JoinColumn(nullable = false)
+    private JpaAuthInfo authInfo;
+
+    public static JpaMember of(UUID id, String name, String phoneNumber, String email, Curriculum curriculum, int generation, String loginId, String credential){
+        return JpaMember.builder()
+                .authInfo(JpaAuthInfo.of(loginId, credential))
+                .email(email)
+                .curriculum(curriculum)
+                .generation(generation)
+                .phoneNumber(phoneNumber)
+                .name(name)
+                .id(id)
+                .build();
+    }
+
+
+}
